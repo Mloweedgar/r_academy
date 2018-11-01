@@ -13,7 +13,7 @@
               <h1>{% trans "Welcome to the " %}<strong>Resilience Academy</strong>GeoNode</h1>
               <p class="lead">{% trans "Our corporate web application for creating and sharing geospatial" %}<br />
               {% trans "data and maps designed for non-GIS experts for the univeristies." %}</p>
-              <a class="btn btn-danger" href="/help/">{% trans "Get Started" %}</a>
+              <a class="btn btn-primary" href="/help/">{% trans "Get Started" %}</a>
               <div class="search">
                     <form id="search" action="{% url "search" %}" >
                         {% if HAYSTACK_SEARCH %}
@@ -143,12 +143,12 @@
                                 </ol>
                             </td>
                             <td>
-                                        <h1 class="font-green">What it can do?</h1>
+                                        <h1 class="font-blue">What it can do?</h1>
                                 <div id='mySwipeWhat' class="swipe-what">
                                     <div class='swipe-what-wrap'>
-                                        <div><img width="740px" height="503px" src="{% static 'ingc_geonode_theme/img/laptop_it_can_do.png' %}"/></div>
-                                        <div><img width="740px" height="503px" src="{% static 'ingc_geonode_theme/img/laptop_it_can_do_2.png' %}"/></div>
-                                        <div><img width="740px" height="503px" src="{% static 'ingc_geonode_theme/img/laptop_it_can_do_3.png' %}"/></div>
+                                        <div><img width="740px" class="mySlides w3-animate-fading" height="503px" src="{% static 'ingc_geonode_theme/img/laptop_it_can_do.png' %}"/></div>
+                                        <div><img width="740px" class="mySlides w3-animate-fading" height="503px" src="{% static 'ingc_geonode_theme/img/laptop_it_can_do_2.png' %}"/></div>
+                                        <div><img width="740px" class="mySlides w3-animate-fading" height="503px" src="{% static 'ingc_geonode_theme/img/laptop_it_can_do_3.png' %}"/></div>
                                     </div>
                                 </div>
                             </td>
@@ -285,6 +285,22 @@
 
 
 {% block extra_script %}
+<script>
+        var myIndex = 0;
+        carousel();
+        
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+               x[i].style.display = "none";  
+            }
+            myIndex++;
+            if (myIndex > x.length) {myIndex = 1}    
+            x[myIndex-1].style.display = "block";  
+            setTimeout(carousel, 9000);    
+        }
+        </script>
 <style>
     .jumbotron {
   background: #ffffff;
@@ -386,8 +402,17 @@
     .font-grey {
         color: #4a4a4a !important;
     }
+    .font-blue{
+        color: #2c689c !important;
+    }
     .about {
         padding: 50px 0;
+    }
+   
+    .search .form-control{
+        width: 40%;
+        margin-left: 30%;
+    margin-top: 15px;
     }
     .tagline {
         background: url({{ STATIC_URL }}geonode/img/01.jpg) no-repeat;
@@ -415,8 +440,11 @@
 
 }
 .container.page{
-    width: 80%;
+    width: 75%;
 }
-
+.w3-animate-fading{
+    animation:fading 10s infinite}
+    @keyframes fading{0%{opacity:0}50%{opacity:1}100%{opacity:0}
+    }
 </style>
 {% endblock extra_script %}

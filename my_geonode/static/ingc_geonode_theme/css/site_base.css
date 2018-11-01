@@ -6860,7 +6860,7 @@ article.tab-pane {
   left: 15px;
   position: relative;
   color: #444;
-  top: 20px;
+  top: 10px;
   margin-right: 25px;
 }
 .navbar-nav .search .fa-search {
@@ -6883,7 +6883,7 @@ article.tab-pane {
 }
 .navbar-nav .avatar img {
   border-radius: 50%;
-  margin-bottom: -15px;
+  margin-bottom: -15px;a
   margin-right: 10px;
   margin-top: -15px;
   height: 42px;
@@ -6893,7 +6893,7 @@ article.tab-pane {
   margin-left: 10px;
 }
 .navbar-brand {
-  background: url(../img/logo.png) no-repeat;
+  background: url(../img/university_s.png) no-repeat;
   background-size: 100%;
   text-indent: -9999px;
   height: 65px;

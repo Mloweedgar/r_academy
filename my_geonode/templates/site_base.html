@@ -6,19 +6,3 @@
 <link href="{{ STATIC_URL }}ingc_geonode_theme/css/site_base.css" rel="stylesheet"/>
 {% endblock %}
 
-{% block script %}
-<script>
-$("#slideshow > div:gt(0)").hide();
-
-setInterval(function() {
-  $('#slideshow > div:first')
-    .fadeOut(3000)
-    .next()
-    .fadeIn(3000)
-    .end()
-    .appendTo('#slideshow');
-}, 5000);
-</script>
-{% endblock script %}
-
-
