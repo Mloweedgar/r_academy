@@ -7,56 +7,58 @@
   <div id="myCarousel" class="carousel slide">
       <div class="carousel-inner">
         <div class="item active">
-          <img src="{{ STATIC_URL }}img/layerslider01.jpg" alt="">
+          <img src="{{ STATIC_URL }}img/layerslider01.jpg" >
           <div class="container">
             <div class="carousel-caption">
-              <h1>{% trans "Welcome to the " %}<strong>WFP</strong>GeoNode</h1>
-              <p class="lead">{% trans "Our corporate web application for creating and sharing geospatial " %}<br />
-              {% trans "data and maps designed for non-GIS experts." %}</p>
+              <h1>{% trans "Welcome to the " %}<strong>Resilience Academy</strong>GeoNode</h1>
+              <p class="lead">{% trans "Our corporate web application for creating and sharing geospatial" %}<br />
+              {% trans "data and maps designed for non-GIS experts for the univeristies." %}</p>
               <a class="btn btn-danger" href="/help/">{% trans "Get Started" %}</a>
-              <p class="image-credit">Image Credit: NASA</p>
+              <div class="search">
+                    <form id="search" action="{% url "search" %}" >
+                        {% if HAYSTACK_SEARCH %}
+                        <input id="search_input" type="text" placeholder="Search Data" class="form-control" name="q">
+                        {% else %}
+                        <input id="search_input" type="text" placeholder="Search Data" class="form-control" name="title__icontains">
+                        {% endif %}
+                    </form>
             </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="{{ STATIC_URL }}img/layerslider02.jpg" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>{% trans "Interactive mapping" %}</h1>
-              <p class="lead">{% trans "You can combine already existing layers with your own data to create" %}<br />
-              {% trans "powerful interactive maps accessible from all devices." %}</p>
-              <a class="btn btn-danger" href="/maps/">{% trans "Explore Maps" %}</a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="{{ STATIC_URL }}img/layerslider03.jpg" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>{% trans "GIS data standardization" %}</h1>
-              <p class="lead">{% trans "GeoNode facilitates data standardization within our organization by providing" %}<br />
-              {% trans "a clear process for uploading your gis data, compiling metadata and styling." %}</p>
-              <a class="btn btn-danger" href="/upload/">{% trans "Upload Layers" %}</a>
-              <p class="image-credit">Photo: WFP/Louis Hamann</p>
             </div>
           </div>
         </div>
       </div>
-      <!-- <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-      <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a> -->
-    </div><!-- /.carousel -->
+    </div>
 {% endblock %}
 
 {% block hero %}
-
+<!-- <section class="social">
+        <div class="container">
+          <div class="row">
+            <div class="span8">
+              <div class="row">
+                <div class="span2"><p><a href="/layers/">{% trans "Layers" %} <span class="count">{{ facets.layers }}</span></a></p></div>
+                <div class="span2"><p><a href="/maps/">{% trans "Maps" %} <span class="count">{{ facets.maps }}</span></a></p></div>
+                <div class="span2"><p><a href="/documents/">{% trans "Documents" %} <span class="count">{{ facets.documents }}</span></a></p></div>
+                <div class="span2"><p><a href="/people/">{% trans "Users" %} <span class="count">{{ facets.users }}</span></a></p></div>
+              </div>
+            </div>
+            <div class="span4">
+              <form class="input-append pull-right" action="{% url "search" %}" method="GET">
+                {# csrf_token #}
+                <input id="search" placeholder="{% trans 'Search...' %}" type="text" name="q"/>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section> -->
 <section class="boxes">
-    <div class="container page">
+<div class="container page">
 <div class="row">
   <div class="col-md-4">
     <a href="/layers/" class="div-link">
       <div class="row">
         <div class="span1">
-          <i class="icon-unchecked icon-rotate-45 icon-4x"></i>
+          <i class="icon-un"></i>
         </div>
         <div class="span3">
           <h3>{% trans "Explore Data" %}</h3>
@@ -89,7 +91,109 @@
   </div>
 </div>
 </div>
+<div class="jumbotron">
+        <div class="row green about">
+            <div class="container">
+              <table>
+                    <tr>
+                      <td colspan="2">
+                          <p style="font-size: 1.5em;">
+                              {% trans "This platform is part of an initiative where the Government of Mozambique and the World Bank have been promoting the use of open geospatial data for government disaster risk management through the Open Data for Resilience Initiative to provide technical assistance to INGC" %}
+                              {% trans "(National Disaster Management Institute) for the management and use of geospatial data to fulfil their core mandate and activities, particularly regarding contingency planning and emergency response." %}
+                              {% trans "The aim is to improve the capacity to respond to disasters and to build the resilience of key public infrastructure in hazard-prone areas." %}
+                          </p>
+                      </td>
+                  </tr>
+              </table>
+          <!-- container-->
+          </div>
+        <!-- row -->
+        </div>
+        {% include "_status_message.html" %}
+        {% include "_announcements.html" %}
+        {% include "_messages.html" %}
+        <!-- div class="row white font-grey what-section" -->
+        <div class="row white font-grey what-section">
+          <div class="container">
+            <!-- div class="row" -->
+              <div class="green-triangle"></div>
+                    <table style="margin: 25px 0px;">
+                        <tr>
+                            <td style="vertical-align: top;">
+                                <ol style="margin: 5px 50px;">
+                                    <li>
+                                        <b>{% trans "Perform Analysis"  %}</b>
+                                        <p>
+                                            {% trans "Perform an InaSAFE analysis using hazard and exposure data hosted on GeoNode."  %}
+                                            {% trans "Visualize the InaSAFE analysis results as a map and infographic, and as downloadable PDF reports."  %}
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <b>{% trans "Analysis List"  %}</b>
+                                        <p>
+                                            {% trans "Browse previously run InaSAFE analysis results and visualize the map and report products for each analysis."  %}
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <b>{% trans "Metasearch" %}</b>
+                                        <p>
+                                            {% trans "Search for datasets in other online geospatial data stores that publish their catalogues using the CSW standard." %}
+                                        </p>
+                                    </li>
+                                </ol>
+                            </td>
+                            <td>
+                                        <h1 class="font-green">What it can do?</h1>
+                                <div id='mySwipeWhat' class="swipe-what">
+                                    <div class='swipe-what-wrap'>
+                                        <div><img width="740px" height="503px" src="{% static 'ingc_geonode_theme/img/laptop_it_can_do.png' %}"/></div>
+                                        <div><img width="740px" height="503px" src="{% static 'ingc_geonode_theme/img/laptop_it_can_do_2.png' %}"/></div>
+                                        <div><img width="740px" height="503px" src="{% static 'ingc_geonode_theme/img/laptop_it_can_do_3.png' %}"/></div>
+                                    </div>
+                                </div>
+                            </td>
+      
+                        </tr>
+                    </table>
+          <!-- container -->
+          </div>
+        <!-- row -->
+        </div>
+      
+        <div class="row green font-white safe-section">
+          <div class="container">
+              <div class="white-triangle"></div>
+              <h1>{% trans "How to run an Analysis?" %}</h1>
+                    <table style="margin: 25px 0px;">
+                        <tr>
+                            <td>
+                                        <div><img src="{% static 'ingc_geonode_theme/img/laptop-run-analysis.png' %}"/></div>
+                            </td>
+                            <td>
+                                <ol style="margin: 5px 50px;">
+                                    <li>
+                                        {% trans "Select an exposure layer (e.g. road, structure, population)" %}
+                                    </li>
+                                    <li>
+                                        {% trans "Select a hazard layer (e.g. flood, tsunami, earthquake, volcano, and volcanic ash)" %}
+                                    </li>
+                                    <li>
+                                        {% trans "Select an impact function" %}
+                                    </li>
+                                </ol>
+                                
+                            </td>
+                        </tr>
+                    </table>
+          <!-- container -->
+          </div>
+        <!-- row -->
+        </div>
+      <!-- jumbotron -->
+      </div>
+      
 </section>
+
 {% endblock %}
 
  
@@ -182,6 +286,9 @@
 
 {% block extra_script %}
 <style>
+    .jumbotron {
+  background: #ffffff;
+}
     .swipe-what {
         overflow: hidden;
         width: 740px;
