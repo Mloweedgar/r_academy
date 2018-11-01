@@ -1,0 +1,165 @@
+{% extends "geonode_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load base_tags %}
+
+{% block title %} {% trans "Welcome!" %} - GeoSAFE {% endblock %}
+{% block body_class %}home{% endblock %}
+
+
+
+{% block extra_script %}
+{{ block.super }}
+{% if DEBUG_STATIC %}
+<script src="{{ STATIC_URL }}lib/js/angular.js"></script>
+{% endif %}
+<script type="text/javascript" src="{% static 'geosafe/js/swipe.js' %}"></script>
+<script type="text/javascript">
+    FEATURED_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='featured' %}'
+    'use strict';
+    (function(){
+      var module = angular.module('featured', []);
+      module.run(function($http, $rootScope){
+        $http.get(FEATURED_URL).success(function(data){
+          $rootScope.featured = data.objects;
+        });
+      });
+    })();
+    var scrollTimer = 10000;
+    var elemWhat = document.getElementById('mySwipeWhat');
+    window.mySwipeWhat = Swipe(elemWhat, {
+        auto: scrollTimer,
+        continuous: true,
+        callback: function(index, elemWhat) {}
+    });
+
+</script>
+<script>
+	$('[data-toggle="tooltip"]').tooltip();
+</script>
+
+<style>
+    .swipe-what {
+        overflow: hidden;
+        width: 740px;
+        position: relative;
+    }
+    .swipe-what-wrap {
+        overflow: hidden;
+        position: relative;
+    }
+    .swipe-what-wrap > div {
+        float: left;
+        width: 740px;
+        position: relative;
+    }
+    img {
+        width: 32px;
+        height: 36px;
+    }
+
+    .extra-note {
+        padding-left: 15px;
+        margin-top: 20px;
+        font-size: 18px;
+    }
+
+    .safe-section li {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .safe-section {
+        padding-top: 0px;
+        padding-bottom: 50px;
+        font-size: 1.5em;
+    }
+
+    .safe-section img {
+        width: 80%;
+        height: 80%;
+    }
+
+    .what-section img {
+        width: 90%;
+        height: 90%;
+    }
+
+    .safe-section {
+        min-width: 320px;
+    }
+
+    .safe-section h1 {
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+        font-size: 56px;
+        font-weight: 900;
+    }
+
+    .safe-section ul {
+        font-size: 20px;
+        padding-top: 15px;
+    }
+
+    .safe-section p {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+
+    a.anchor {
+        display: block;
+        position: relative;
+        top: -75px;
+        visibility: hidden;
+    }
+
+    table.tryit {
+        width: 100%;
+    }
+    .btn-warning {
+        background-color: #f6a623;
+    }
+    .green {
+        background-color: #2aa858;
+    }
+    .white {
+        background-color: white;
+    }
+    .font-white {
+        color: white !important;
+    }
+    .font-black {
+        color: black;
+    }
+    .font-green {
+        color: #2aa858 !important;
+    }
+    .font-grey {
+        color: #4a4a4a !important;
+    }
+    .about {
+        padding: 50px 0;
+    }
+    .tagline {
+        background: url({{ STATIC_URL }}geonode/img/01.jpg) no-repeat;
+        -webkit-background-size:100%;
+        background-size:100%;
+        height: 398px;
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.9);
+    }
+    .green-triangle {
+        background: url({{ STATIC_URL }}geonode/img/green-triangle.png) no-repeat;
+        width: 40px;
+        height: 36px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .white-triangle {
+        background: url({{ STATIC_URL }}geonode/img/white-triangle.png) no-repeat;
+        width: 40px;
+        height: 36px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+{% endblock extra_script %}

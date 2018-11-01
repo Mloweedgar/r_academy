@@ -1,0 +1,8 @@
+{% extends 'geosafe/analysis/create_base.html' %}
+
+{% load staticfiles %}
+
+{% block default_zoom %}
+    {# the page load for the first time, zoom first to Mozambique extent #}
+    zoom_to_box(map, [29.970703,-27.527758,40.869141,-10.314919]);
+{% endblock default_zoom %}
