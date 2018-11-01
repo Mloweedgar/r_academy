@@ -1,43 +1,186 @@
-{% extends "geonode_base.html" %}
+{% extends 'index.html' %}
 {% load i18n %}
 {% load staticfiles %}
-{% load base_tags %}
+{% block title %} {% trans "Welcome!" %} - Resilience academy {% endblock %}
+{% block body_class %}
 
-{% block title %} {% trans "Welcome!" %} - GeoSAFE {% endblock %}
-{% block body_class %}home{% endblock %}
+  <div id="myCarousel" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="{{ STATIC_URL }}img/layerslider01.jpg" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>{% trans "Welcome to the " %}<strong>WFP</strong>GeoNode</h1>
+              <p class="lead">{% trans "Our corporate web application for creating and sharing geospatial " %}<br />
+              {% trans "data and maps designed for non-GIS experts." %}</p>
+              <a class="btn btn-danger" href="/help/">{% trans "Get Started" %}</a>
+              <p class="image-credit">Image Credit: NASA</p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="{{ STATIC_URL }}img/layerslider02.jpg" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>{% trans "Interactive mapping" %}</h1>
+              <p class="lead">{% trans "You can combine already existing layers with your own data to create" %}<br />
+              {% trans "powerful interactive maps accessible from all devices." %}</p>
+              <a class="btn btn-danger" href="/maps/">{% trans "Explore Maps" %}</a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="{{ STATIC_URL }}img/layerslider03.jpg" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>{% trans "GIS data standardization" %}</h1>
+              <p class="lead">{% trans "GeoNode facilitates data standardization within our organization by providing" %}<br />
+              {% trans "a clear process for uploading your gis data, compiling metadata and styling." %}</p>
+              <a class="btn btn-danger" href="/upload/">{% trans "Upload Layers" %}</a>
+              <p class="image-credit">Photo: WFP/Louis Hamann</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a> -->
+    </div><!-- /.carousel -->
+{% endblock %}
+
+{% block hero %}
+
+<section class="boxes">
+    <div class="container page">
+<div class="row">
+  <div class="col-md-4">
+    <a href="/layers/" class="div-link">
+      <div class="row">
+        <div class="span1">
+          <i class="icon-unchecked icon-rotate-45 icon-4x"></i>
+        </div>
+        <div class="span3">
+          <h3>{% trans "Explore Data" %}</h3>
+          <p>{% trans "Click to search for geospatial data from our corporate SDI or published by other users, organizations and public sources." %}</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-md-4">
+    <a href="/maps/" class="div-link">
+      <div class="row">
+        <div class="span1" style="text-align:center"><i class="icon-map-marker icon-4x"></i></div>
+        <div class="span3">
+          <h3>{% trans "Explore Maps" %}</h3>
+          <p>{% trans "Data is available for browsing, aggregating and styling to generate maps which can be shared publicly or restricted to specific users only." %}</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-md-4">
+    <a href="/upload/" class="div-link">
+    <div class="row">
+      <div class="span1"><i class="icon-cloud-upload icon-4x"></i></div>
+        <div class="span3">
+          <h3>{% trans "Upload Data" %}</h3>
+          <p>{% trans "GeoNode allows registered users fo easily upload geospatial data in several formats including shapefile, GeoTiff and KML" %}.</p>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+</div>
+</section>
+{% endblock %}
+
+ 
+{% block footer %}
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2 pull-left">
+        </div>
+<!-- div class="center-block" -->
+        <div class="col-md-1 col-lg-2">
+          <ul class="list-unstyled">
+            <li>{% trans "About" %}</li>
+            <li><a href="{% url "profile_browse" %}">{% trans "People" %}</a></li>
+            <li><a href="{% url "group_list" %}">{% trans "Groups" %}</a></li>
+            {% if perms.announcements.can_manage %}
+            <li><a href="{% url "announcements_list" %}">{% trans "Announcements" %}</a></li>
+            {% endif %}
+            <li><a href="{% url "geonode.invitations:geonode-send-invite" %}">{% trans "Invite Users" %}</a></li>
+            {% if user.is_superuser %}
+            <li><a href="/admin/people/profile/add/">{% trans "Add User" %}</a></li>
+            <li><a href="{% url "group_create" %}">{% trans "Create Group" %}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+        <div class="col-md-1 col-lg-2">
+          <ul class="list-unstyled">
+            <li>{% trans "Maps" %}</li>
+            <li><a href="{% url "maps_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Explore Maps" %}</a></li>
+            {% if user.is_authenticated %}
+            <li> <a href="{% url "new_map" %}">{% trans "Create Map" %}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+        <div class="col-md-1 col-lg-1">
+          <ul class="list-unstyled">
+            <li>{% trans "Data" %}</li>
+            <li><a href="{% url "layer_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Layers" %}</a></li>
+            <li><a href="{% url "document_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Documents" %}</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url "services" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Remote Services" %}</a></li>
+            <li><a href="{% url "layer_upload" %}">Upload Layer</a></li>
+            {% if 'geonode.contrib.createlayer' in INSTALLED_APPS %}
+              <li><a href="{% url "layer_create" %}">{% trans "Create Layer" %}</a></li>
+            {% endif %}
+            <li><a href="{% url "document_upload" %}">Upload Document</a></li>
+            <li><a href="{% url "register_service" %}">{% trans "Add Remote Service" %}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+        <div class="col-md-1 col-lg-1">
+          <ul class="list-unstyled">
+              <li><a href="{% url "developer" %}">{% trans "Developers" %}</a>&nbsp;|</li>
+              <li><a href="{% url "about" %}">{% trans "About" %}</a><li>
+          </ul>
+        </div>
+          <div class="col-md-2">
+                    <label class="hidden">{% trans "Language" %}</label>
+              {% if csrf_token != "NOTPROVIDED" %}
+              {% get_current_language as LANGUAGE %}
+              <form class="form-inline" action="/i18n/setlang/" method="post">
+              {% csrf_token %}
+                <select class="col-md-6" name="language" onchange="javascript:form.submit()">
+                  {% for lang in LANGUAGES %}
+                  <option value="{{ lang.0 }}" {% ifequal LANGUAGE_CODE lang.0 %} selected="selected"{% endifequal %}>
+                    {{ lang.1 }}
+                  </option>
+                  {% endfor %}
+                </select>
+              </form>
+              {% endif %}
+          </div>
+<!-- /div -->
+        <div class="col-md-2 pull-right">
+
+        </div>
+      </div>
+      <div class="row">
+            <!-- <p style="font-size: small; text-align: center; margin-top: 10px">
+                {% trans "To contribute to the GeoSAFE project or to report any issues," %}
+                {% trans "head over to the " %}<a href="https://github.com/kartoza/geosafe"
+                target="_blank">GeoSAFE</a> {% trans "repository." %}
+            </p> -->
+      </div>
+    </div>
+  </footer>
+  {% endblock footer %}
 
 
 
 {% block extra_script %}
-{{ block.super }}
-{% if DEBUG_STATIC %}
-<script src="{{ STATIC_URL }}lib/js/angular.js"></script>
-{% endif %}
-<script type="text/javascript" src="{% static 'geosafe/js/swipe.js' %}"></script>
-<script type="text/javascript">
-    FEATURED_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='featured' %}'
-    'use strict';
-    (function(){
-      var module = angular.module('featured', []);
-      module.run(function($http, $rootScope){
-        $http.get(FEATURED_URL).success(function(data){
-          $rootScope.featured = data.objects;
-        });
-      });
-    })();
-    var scrollTimer = 10000;
-    var elemWhat = document.getElementById('mySwipeWhat');
-    window.mySwipeWhat = Swipe(elemWhat, {
-        auto: scrollTimer,
-        continuous: true,
-        callback: function(index, elemWhat) {}
-    });
-
-</script>
-<script>
-	$('[data-toggle="tooltip"]').tooltip();
-</script>
-
 <style>
     .swipe-what {
         overflow: hidden;
@@ -54,8 +197,7 @@
         position: relative;
     }
     img {
-        width: 32px;
-        height: 36px;
+        width: 100%;
     }
 
     .extra-note {
@@ -161,5 +303,13 @@
         margin-left: auto;
         margin-right: auto;
     }
+    footer {
+    background-color: #7e8c9c;
+
+}
+.container.page{
+    width: 80%;
+}
+
 </style>
 {% endblock extra_script %}
