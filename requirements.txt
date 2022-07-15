@@ -8,7 +8,7 @@ six<1.11.0
 celery>4.0a0c,<=4.1.0
 django-celery-monitor<=1.1.2
 django-celery-beat==1.1.1
-django-celery-results==1.0.1
+django-celery-results==2.4.0
 
 # geopython dependencies
 pyproj>=1.9.5,<=1.9.5.1
